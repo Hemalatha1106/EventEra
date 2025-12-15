@@ -1,26 +1,81 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { useParams } from "next/navigation"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, MapPin, Users, DollarSign, Clock, User } from "lucide-react"
 import { format } from "date-fns"
+import api from "@/lib/api"
 
-// Mock data - replace with actual API call
-const event = {
-  _id: "1",
-  title: "Web Development Workshop",
-  description:
-    "Join us for an immersive hands-on workshop where you'll learn modern web development using React and Next.js. This comprehensive session covers everything from fundamentals to advanced concepts, perfect for both beginners looking to start their journey and intermediate developers wanting to level up their skills.\n\nWhat you'll learn:\n• React fundamentals and hooks\n• Next.js App Router\n• Server components and actions\n• Building responsive UIs with Tailwind CSS\n• Deployment best practices",
-  location: "TechHub SF, 123 Market Street, San Francisco, CA 94103",
-  date: new Date("2025-02-15T18:00:00"),
-  ticketPrice: 50,
-  seatsAvailable: 25,
-  registrationDeadline: new Date("2025-02-10"),
-  status: "open" as const,
-  user: { _id: "1", name: "John Doe", email: "john@example.com" },
+interface Event {
+  _id: string
+  title: string
+  description: string
+  location: string
+  date: string
+  ticketPrice: number
+  seatsAvailable: number
+  registrationDeadline: string
+  status: "open" | "closed"
+  user: {
+    _id: string
+    name: string
+  }
 }
 
 export default function EventDetailsPage() {
+  const params = useParams()
+  const eventId = params.id as string
+
+  const [event, setEvent] = useState<Event | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const response = await api.get(`/events/${eventId}`)
+        setEvent(response.data)
+      } catch (err: any) {
+        setError(err.response?.data?.message || "Failed to load event")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    if (eventId) {
+      fetchEvent()
+    }
+  }, [eventId])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="mx-auto max-w-4xl px-4 py-12">
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Loading event details...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (error || !event) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="mx-auto max-w-4xl px-4 py-12">
+          <div className="text-center py-12">
+            <p className="text-red-500">{error || "Event not found"}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
   return (
     <div className="min-h-screen bg-background">
       <Navigation />

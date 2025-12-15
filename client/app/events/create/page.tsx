@@ -1,16 +1,26 @@
 "use client"
 
 import type React from "react"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 
+import api from "@/lib/api"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { useState } from "react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 export default function CreateEventPage() {
+  const router = useRouter()
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -22,20 +32,45 @@ export default function CreateEventPage() {
     registrationDeadline: "",
   })
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("[v0] Form submitted:", formData)
-    // TODO: Implement API call to create event
-    alert("Event creation will be implemented with backend integration")
-  }
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }))
   }
 
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setError("");
+  setLoading(true);
+
+  try {
+    // Combine date + time into ISO Date
+    const eventDateTime = new Date(`${formData.date}T${formData.time}`);
+
+    await api.post("/events", {
+      title: formData.title,
+      description: formData.description,
+      location: formData.location,
+      date: eventDateTime,
+      ticketPrice: Number(formData.ticketPrice),
+      seatsAvailable: Number(formData.seatsAvailable),
+      registrationDeadline: new Date(formData.registrationDeadline),
+    });
+
+    alert("Event created successfully!"); // optional
+    router.push("/events"); // redirect to events page
+  } catch (err: any) {
+    setError(err.response?.data?.message || "Failed to create event");
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -43,22 +78,25 @@ export default function CreateEventPage() {
       <div className="mx-auto max-w-3xl px-4 py-12">
         <div className="mb-8">
           <h1 className="mb-2 text-4xl font-bold">Create New Event</h1>
-          <p className="text-muted-foreground">Fill in the details below to create your event</p>
+          <p className="text-muted-foreground">
+            Fill in the details below to create your event
+          </p>
         </div>
 
         <Card>
           <CardHeader>
             <CardTitle>Event Details</CardTitle>
-            <CardDescription>Provide information about your event to attract attendees</CardDescription>
+            <CardDescription>
+              Provide information about your event to attract attendees
+            </CardDescription>
           </CardHeader>
+
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="title">Event Title *</Label>
+                <Label>Event Title *</Label>
                 <Input
-                  id="title"
                   name="title"
-                  placeholder="e.g., Web Development Workshop"
                   value={formData.title}
                   onChange={handleChange}
                   required
@@ -66,24 +104,20 @@ export default function CreateEventPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">Description *</Label>
+                <Label>Description *</Label>
                 <Textarea
-                  id="description"
                   name="description"
-                  placeholder="Describe your event, what attendees will learn or experience..."
+                  rows={5}
                   value={formData.description}
                   onChange={handleChange}
-                  rows={6}
                   required
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="location">Location *</Label>
+                <Label>Location *</Label>
                 <Input
-                  id="location"
                   name="location"
-                  placeholder="e.g., 123 Main St, San Francisco, CA"
                   value={formData.location}
                   onChange={handleChange}
                   required
@@ -92,41 +126,47 @@ export default function CreateEventPage() {
 
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="date">Event Date *</Label>
-                  <Input id="date" name="date" type="date" value={formData.date} onChange={handleChange} required />
+                  <Label>Date *</Label>
+                  <Input
+                    type="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="time">Event Time *</Label>
-                  <Input id="time" name="time" type="time" value={formData.time} onChange={handleChange} required />
+                  <Label>Time *</Label>
+                  <Input
+                    type="time"
+                    name="time"
+                    value={formData.time}
+                    onChange={handleChange}
+                    required
+                  />
                 </div>
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="ticketPrice">Ticket Price ($) *</Label>
+                  <Label>Ticket Price *</Label>
                   <Input
-                    id="ticketPrice"
-                    name="ticketPrice"
                     type="number"
                     min="0"
-                    step="0.01"
-                    placeholder="0.00"
+                    name="ticketPrice"
                     value={formData.ticketPrice}
                     onChange={handleChange}
                     required
                   />
-                  <p className="text-xs text-muted-foreground">Enter 0 for free events</p>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="seatsAvailable">Available Seats *</Label>
+                  <Label>Seats Available *</Label>
                   <Input
-                    id="seatsAvailable"
-                    name="seatsAvailable"
                     type="number"
                     min="1"
-                    placeholder="50"
+                    name="seatsAvailable"
                     value={formData.seatsAvailable}
                     onChange={handleChange}
                     required
@@ -135,21 +175,26 @@ export default function CreateEventPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="registrationDeadline">Registration Deadline *</Label>
+                <Label>Registration Deadline *</Label>
                 <Input
-                  id="registrationDeadline"
-                  name="registrationDeadline"
                   type="date"
+                  name="registrationDeadline"
                   value={formData.registrationDeadline}
                   onChange={handleChange}
                   required
                 />
-                <p className="text-xs text-muted-foreground">Last date for attendees to register</p>
               </div>
 
+              {/* Error message */}
+              {error && (
+                <p className="text-sm text-red-500 text-center">
+                  {error}
+                </p>
+              )}
+
               <div className="flex gap-4 pt-6">
-                <Button type="submit" size="lg" className="flex-1">
-                  Create Event
+                <Button type="submit" size="lg" disabled={loading} className="flex-1">
+                  {loading ? "Creating..." : "Create Event"}
                 </Button>
                 <Button type="button" variant="outline" size="lg">
                   Cancel

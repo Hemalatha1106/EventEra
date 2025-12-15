@@ -24,6 +24,16 @@ export const createEvent = async (req, res) => {
   }
 };
 
+// GET ALL EVENTS
+export const getAllEvents = async (req, res) => {
+  try {
+    const events = await Event.find({}).populate('user', 'name');
+    res.json(events);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // GET MY EVENTS
 export const getMyEvents = async (req, res) => {
   try {
@@ -37,12 +47,8 @@ export const getMyEvents = async (req, res) => {
 // GET SINGLE EVENT
 export const getEventById = async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.params.id).populate('user', 'name');
     if (!event) return res.status(404).json({ message: "Event not found" });
-
-    if (event.user.toString() !== req.user._id.toString()) {
-      return res.status(401).json({ message: "Not allowed" });
-    }
 
     res.json(event);
   } catch (error) {

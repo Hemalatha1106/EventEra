@@ -10,10 +10,10 @@ interface Event {
   title: string
   description: string
   location: string
-  date: Date
+  date: string
   ticketPrice: number
   seatsAvailable: number
-  registrationDeadline: Date
+  registrationDeadline: string
   status: "open" | "closed"
   user: {
     _id: string
