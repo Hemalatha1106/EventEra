@@ -132,7 +132,9 @@ export const registerForEvent = async (req, res) => {
 
     // ADD event to user's registeredEvents
     const user = await User.findById(req.user._id);
-    if (!user.registeredEvents.includes(event._id)) {
+    const eventIdStr = event._id.toString();
+    const hasRegistered = user.registeredEvents.some(id => id.toString() === eventIdStr);
+    if (!hasRegistered) {
       user.registeredEvents.push(event._id);
       await user.save();
     }
@@ -145,8 +147,19 @@ export const registerForEvent = async (req, res) => {
 
 export const getRegisteredEvents = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate("registeredEvents");
-    res.json(user.registeredEvents);
+    const user = await User.findById(req.user._id);
+    // Filter out invalid ObjectIds and populate only valid ones
+    const validEventIds = user.registeredEvents.filter(id => {
+      try {
+        const idStr = id.toString();
+        return id && idStr.match(/^[0-9a-fA-F]{24}$/);
+      } catch {
+        return false;
+      }
+    });
+
+    const populatedEvents = await Event.find({ _id: { $in: validEventIds } });
+    res.json(populatedEvents);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
