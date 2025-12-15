@@ -1,3 +1,6 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import { Navigation } from "@/components/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -6,39 +9,75 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Calendar, MapPin, Users, Plus, Edit, Trash2 } from "lucide-react"
 import Link from "next/link"
 import { format } from "date-fns"
+import api from "@/lib/api"
 
-// Mock data - replace with actual API calls
-const hostedEvents = [
-  {
-    _id: "1",
-    title: "Web Development Workshop",
-    location: "San Francisco, CA",
-    date: new Date("2025-02-15T18:00:00"),
-    seatsAvailable: 25,
-    status: "open" as const,
-  },
-]
-
-const registeredEvents = [
-  {
-    _id: "2",
-    title: "Startup Networking Night",
-    location: "New York, NY",
-    date: new Date("2025-02-20T19:00:00"),
-    ticketPrice: 0,
-    status: "open" as const,
-  },
-  {
-    _id: "3",
-    title: "Design Thinking Conference",
-    location: "Austin, TX",
-    date: new Date("2025-03-05T09:00:00"),
-    ticketPrice: 150,
-    status: "open" as const,
-  },
-]
+interface Event {
+  _id: string
+  title: string
+  description: string
+  location: string
+  date: string
+  ticketPrice: number
+  seatsAvailable: number
+  registrationDeadline: string
+  status: "open" | "closed"
+  user?: {
+    _id: string
+    name: string
+  }
+}
 
 export default function DashboardPage() {
+  const [hostedEvents, setHostedEvents] = useState<Event[]>([])
+  const [registeredEvents, setRegisteredEvents] = useState<Event[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [hostedRes, registeredRes] = await Promise.all([
+          api.get("/events"),
+          api.get("/events/registered")
+        ])
+        setHostedEvents(hostedRes.data)
+        setRegisteredEvents(registeredRes.data)
+      } catch (err: any) {
+        setError(err.response?.data?.message || "Failed to load dashboard data")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="mx-auto max-w-7xl px-4 py-12">
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Loading dashboard...</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="mx-auto max-w-7xl px-4 py-12">
+          <div className="text-center py-12">
+            <p className="text-red-500">{error}</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -63,7 +102,6 @@ export default function DashboardPage() {
             <TabsTrigger value="hosted">Hosted Events ({hostedEvents.length})</TabsTrigger>
             <TabsTrigger value="registered">Registered Events ({registeredEvents.length})</TabsTrigger>
           </TabsList>
-
           <TabsContent value="hosted" className="space-y-4">
             {hostedEvents.length === 0 ? (
               <Card>
