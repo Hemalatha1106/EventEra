@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
+
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
@@ -9,14 +11,23 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(express.json()); // body parser
+
+// ✅ ENABLE CORS
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
+// ✅ BODY PARSER
+app.use(express.json());
 
 // Routes
 app.use("/api/auth", authRoutes);
-
 app.use("/api/events", eventRoutes);
+app.use("/api/admin", adminRoutes);
 
-app.use("/api/admin", adminRoutes); 
 // Home route
 app.get("/", (req, res) => {
   res.send("API is running...");
