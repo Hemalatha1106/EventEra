@@ -10,6 +10,7 @@ import { Calendar, MapPin, Users, DollarSign, Clock, User } from "lucide-react"
 import { format } from "date-fns"
 import api from "@/lib/api"
 
+
 interface Event {
   _id: string
   title: string
@@ -33,6 +34,10 @@ export default function EventDetailsPage() {
   const [event, setEvent] = useState<Event | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+
+  const [registering, setRegistering] = useState(false)
+  const [registerError, setRegisterError] = useState("")
+  const [success, setSuccess] = useState("")
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -76,6 +81,28 @@ export default function EventDetailsPage() {
       </div>
     )
   }
+  const handleRegister = async () => {
+  setRegisterError("")
+  setSuccess("")
+  setRegistering(true)
+
+  try {
+    await api.post(`/events/${eventId}/register`)
+    setSuccess("Successfully registered for the event 🎉")
+
+    // Optional: reduce seats instantly (UX boost)
+    setEvent((prev) =>
+      prev ? { ...prev, seatsAvailable: prev.seatsAvailable - 1 } : prev
+    )
+  } catch (err: any) {
+    setRegisterError(
+      err.response?.data?.message || "Registration failed"
+    )
+  } finally {
+    setRegistering(false)
+  }
+}
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -159,10 +186,27 @@ export default function EventDetailsPage() {
                     </div>
                   </div>
                 </div>
+                {registerError && (
+                <p className="text-sm text-red-500 text-center mb-2">
+                  {registerError}
+                </p>
+              )}
 
-                <Button className="w-full" size="lg">
-                  Register Now
-                </Button>
+              {success && (
+                <p className="text-sm text-green-600 text-center mb-2">
+                  {success}
+                </p>
+              )}
+
+                <Button
+                className="w-full"
+                size="lg"
+                onClick={handleRegister}
+                disabled={registering || event.status === "closed" || event.seatsAvailable === 0}
+              >
+                {registering ? "Registering..." : "Register Now"}
+              </Button>
+
               </CardContent>
             </Card>
           </div>

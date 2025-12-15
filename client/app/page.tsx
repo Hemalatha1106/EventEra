@@ -97,7 +97,7 @@ export default function HomePage() {
       <footer className="border-t border-border px-4 py-12">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-sm text-muted-foreground">© 2025 EventHub. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground">© 2025 EventEra. All rights reserved.</p>
             <div className="flex gap-6 text-sm text-muted-foreground">
               <Link href="#" className="hover:text-foreground transition-colors">
                 Privacy

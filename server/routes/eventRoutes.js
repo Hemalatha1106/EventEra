@@ -15,11 +15,11 @@ const router = express.Router();
 
 router.post("/", protect, createEvent);           // Create
 router.get("/all", getAllEvents);                 // Get all events
-router.get("/", protect, getMyEvents);            // Get all my events
-router.get("/:id", getEventById);                 // Get single (public)
+router.get("/", protect, getMyEvents);            // Get all my events                 
 router.put("/:id", protect, updateEvent);         // Update
 router.delete("/:id", protect, deleteEvent);      // Delete
 router.post("/:id/register", protect, registerForEvent);
-router.get("/registered", protect, getRegisteredEvents);
+router.get("/registered", protect, getRegisteredEvents);// Get single (public)
+router.get("/:id", getEventById);
 
 export default router;
