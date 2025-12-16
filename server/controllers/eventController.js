@@ -103,47 +103,57 @@ export const deleteEvent = async (req, res) => {
 // USER registers for event
 export const registerForEvent = async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
-    if (!event) return res.status(404).json({ message: "Event not found" });
+    const event = await Event.findById(req.params.id)
+    const user = await User.findById(req.user._id)
 
-    const now = new Date();
-
-    // Check deadline
-    if (event.registrationDeadline < now) {
-      event.status = "closed";
-      await event.save();
-      return res.status(400).json({ message: "Registration closed (deadline passed)" });
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" })
     }
 
-    // Check seat availability
+    // ❌ Registration closed
+    if (event.status === "closed") {
+      return res.status(400).json({ message: "Registration closed" })
+    }
+
+    // ❌ Deadline passed
+    if (new Date() > event.registrationDeadline) {
+      return res.status(400).json({ message: "Registration deadline passed" })
+    }
+
+    // ❌ Seats full
     if (event.seatsAvailable <= 0) {
-      event.status = "closed";
-      await event.save();
-      return res.status(400).json({ message: "Event full, registration closed" });
+      return res.status(400).json({ message: "No seats available" })
     }
 
-    // Reduce seat count by 1
-    event.seatsAvailable -= 1;
+    // ❌ Already registered
+    const alreadyRegistered = event.registrations.some(
+      (r) => r.user.toString() === req.user._id.toString()
+    )
 
-    // If seats now 0, close event
-    if (event.seatsAvailable === 0) event.status = "closed";
-
-    await event.save();
-
-    // ADD event to user's registeredEvents
-    const user = await User.findById(req.user._id);
-    const eventIdStr = event._id.toString();
-    const hasRegistered = user.registeredEvents.some(id => id.toString() === eventIdStr);
-    if (!hasRegistered) {
-      user.registeredEvents.push(event._id);
-      await user.save();
+    if (alreadyRegistered) {
+      return res.status(400).json({ message: "Already registered" })
     }
 
-    res.json({ message: "Registered successfully", seatsLeft: event.seatsAvailable, status: event.status });
+    // ✅ Add registration
+    event.registrations.push({
+      user: req.user._id,
+      paymentStatus: event.ticketPrice === 0 ? "free" : "pending",
+    })
+
+    event.seatsAvailable -= 1
+
+    await event.save()
+
+    // Optional: also track in user
+    user.registeredEvents.push(event._id)
+    await user.save()
+
+    res.status(200).json({ message: "Registered successfully" })
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error)
+    res.status(500).json({ message: "Registration failed" })
   }
-};
+}
 
 export const getRegisteredEvents = async (req, res) => {
   try {
@@ -164,3 +174,25 @@ export const getRegisteredEvents = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// GET PARTICIPANTS OF AN EVENT (HOST ONLY)
+export const getEventParticipants = async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id)
+      .populate("registrations.user", "name email");
+
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    // 🔐 Only host can see participants
+    if (event.user.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ message: "Not authorized" });
+    }
+
+    res.json(event.registrations);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+

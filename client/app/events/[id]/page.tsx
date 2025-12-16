@@ -27,6 +27,21 @@ interface Event {
   }
 }
 
+interface Participant {
+  user: {
+    name: string
+    email: string
+  }
+  registeredAt: string
+  paymentStatus: string
+}
+
+interface User {
+  id: string
+  name: string
+  email: string
+}
+
 export default function EventDetailsPage() {
   const params = useParams()
   const eventId = params.id as string
@@ -39,11 +54,30 @@ export default function EventDetailsPage() {
   const [registerError, setRegisterError] = useState("")
   const [success, setSuccess] = useState("")
 
+  const [currentUser, setCurrentUser] = useState<User | null>(null)
+  const [participants, setParticipants] = useState<Participant[]>([])
+
   useEffect(() => {
-    const fetchEvent = async () => {
+    const fetchData = async () => {
       try {
+        // Get current user
+        const userData = localStorage.getItem("user")
+        if (userData) {
+          setCurrentUser(JSON.parse(userData))
+        }
+
+        // Fetch event
         const response = await api.get(`/events/${eventId}`)
         setEvent(response.data)
+
+        // If user is host, fetch participants
+        if (userData) {
+          const user = JSON.parse(userData)
+          if (response.data.user._id === user.id) {
+            const participantsResponse = await api.get(`/events/${eventId}/participants`)
+            setParticipants(participantsResponse.data)
+          }
+        }
       } catch (err: any) {
         setError(err.response?.data?.message || "Failed to load event")
       } finally {
@@ -52,7 +86,7 @@ export default function EventDetailsPage() {
     }
 
     if (eventId) {
-      fetchEvent()
+      fetchData()
     }
   }, [eventId])
 
@@ -132,6 +166,35 @@ export default function EventDetailsPage() {
                 <div className="whitespace-pre-line text-muted-foreground leading-relaxed">{event.description}</div>
               </CardContent>
             </Card>
+
+            {/* Participants Section - Only for host */}
+            {currentUser && event.user._id === currentUser.id && (
+              <Card className="mt-8">
+                <CardContent className="pt-6">
+                  <h2 className="mb-4 text-xl font-semibold">Registered Participants ({participants.length})</h2>
+                  {participants.length === 0 ? (
+                    <p className="text-muted-foreground">No participants registered yet.</p>
+                  ) : (
+                    <div className="space-y-4">
+                      {participants.map((participant, index) => (
+                        <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
+                          <div>
+                            <p className="font-medium">{participant.user.name}</p>
+                            <p className="text-sm text-muted-foreground">{participant.user.email}</p>
+                            <p className="text-xs text-muted-foreground">
+                              Registered on {format(new Date(participant.registeredAt), "MMM dd, yyyy")}
+                            </p>
+                          </div>
+                          <Badge variant={participant.paymentStatus === "paid" ? "default" : participant.paymentStatus === "free" ? "secondary" : "outline"}>
+                            {participant.paymentStatus}
+                          </Badge>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* Sidebar */}

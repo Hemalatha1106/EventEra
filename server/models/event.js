@@ -2,43 +2,84 @@ import mongoose from "mongoose";
 
 const eventSchema = new mongoose.Schema(
   {
-    user: {                       // The user who created/hosts the event
+    // 👑 Host of the event
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
+
+    // 📌 Basic details
     title: {
       type: String,
       required: true,
+      trim: true,
     },
     description: {
       type: String,
+      required: true,
     },
     location: {
       type: String,
       required: true,
     },
+
+    // 🗓️ Event date & time
     date: {
       type: Date,
       required: true,
     },
-    ticketPrice: {                // New: price of the ticket
+
+    // 💰 Pricing
+    ticketPrice: {
       type: Number,
-      default: 0,
+      default: 0, // 0 = free event
     },
-    seatsAvailable: {             // New: how many seats left
+
+    // 🎟️ Capacity
+    seatsAvailable: {
       type: Number,
       required: true,
     },
-    registrationDeadline: {       // New: last date to register
+
+    // ⏰ Registration cutoff
+    registrationDeadline: {
       type: Date,
       required: true,
     },
-    status: {                     // New: is event open or closed
+
+    // 🚦 Event status
+    status: {
       type: String,
       enum: ["open", "closed"],
       default: "open",
     },
+
+    // 👥 REGISTERED PARTICIPANTS (🔥 IMPORTANT)
+    registrations: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        registeredAt: {
+          type: Date,
+          default: Date.now,
+        },
+
+        // 💳 Payment support (future Razorpay)
+        paymentStatus: {
+          type: String,
+          enum: ["pending", "paid", "free"],
+          default: "free",
+        },
+
+        paymentId: String, // Razorpay payment_id (future)
+
+        // 🎫 QR ticket (future)
+        ticketId: String, // unique ticket ID
+      },
+    ],
   },
   { timestamps: true }
 );

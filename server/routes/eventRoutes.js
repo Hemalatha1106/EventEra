@@ -8,18 +8,25 @@ import {
   deleteEvent,
   getEventById,
   registerForEvent,
-  getRegisteredEvents
+  getRegisteredEvents,
+  getEventParticipants
 } from "../controllers/eventController.js";
 
 const router = express.Router();
 
-router.post("/", protect, createEvent);           // Create
+// 🌐 Public routes
 router.get("/all", getAllEvents);                 // Get all events
-router.get("/", protect, getMyEvents);            // Get all my events                 
-router.put("/:id", protect, updateEvent);         // Update
-router.delete("/:id", protect, deleteEvent);      // Delete
-router.post("/:id/register", protect, registerForEvent);
-router.get("/registered", protect, getRegisteredEvents);// Get single (public)
-router.get("/:id", getEventById);
+
+// 🔐 Protected routes (specific routes first)
+router.get("/registered", protect, getRegisteredEvents);  // Get events user registered for
+router.get("/:id/participants", protect, getEventParticipants); // Get event participants
+
+// General routes
+router.get("/:id", getEventById);                // Get single event (public)
+router.post("/", protect, createEvent);                   // Create event
+router.get("/", protect, getMyEvents);                    // Get my events
+router.put("/:id", protect, updateEvent);                // Update event
+router.delete("/:id", protect, deleteEvent);             // Delete event
+router.post("/:id/register", protect, registerForEvent);  // User registers for event
 
 export default router;

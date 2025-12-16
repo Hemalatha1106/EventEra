@@ -72,13 +72,22 @@ export function Navigation() {
                   Events
                 </Link>
                 <Link
-                  href="/dashboard"
+                  href="/hosting"
                   className={cn(
                     "text-sm font-medium transition-colors hover:text-foreground",
-                    pathname === "/dashboard" ? "text-foreground" : "text-muted-foreground",
+                    pathname === "/hosting" ? "text-foreground" : "text-muted-foreground",
                   )}
                 >
-                  Dashboard
+                  Hosting
+                </Link>
+                <Link
+                  href="/registered"
+                  className={cn(
+                    "text-sm font-medium transition-colors hover:text-foreground",
+                    pathname === "/registered" ? "text-foreground" : "text-muted-foreground",
+                  )}
+                >
+                  Registered
                 </Link>
               </>
             )}

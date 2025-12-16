@@ -599,12 +599,21 @@ function Navigation() {
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                        href: "/dashboard",
-                                        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("text-sm font-medium transition-colors hover:text-foreground", pathname === "/dashboard" ? "text-foreground" : "text-muted-foreground"),
-                                        children: "Dashboard"
+                                        href: "/hosting",
+                                        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("text-sm font-medium transition-colors hover:text-foreground", pathname === "/hosting" ? "text-foreground" : "text-muted-foreground"),
+                                        children: "Hosting"
                                     }, void 0, false, {
                                         fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
                                         lineNumber: 74,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                        href: "/registered",
+                                        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("text-sm font-medium transition-colors hover:text-foreground", pathname === "/registered" ? "text-foreground" : "text-muted-foreground"),
+                                        children: "Registered"
+                                    }, void 0, false, {
+                                        fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
+                                        lineNumber: 83,
                                         columnNumber: 17
                                     }, this)
                                 ]
@@ -632,7 +641,7 @@ function Navigation() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                lineNumber: 91,
+                                lineNumber: 100,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenu"], {
@@ -650,30 +659,30 @@ function Navigation() {
                                                         alt: user.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                                        lineNumber: 98,
+                                                        lineNumber: 107,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AvatarFallback"], {
                                                         children: user.name.charAt(0).toUpperCase()
                                                     }, void 0, false, {
                                                         fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                                        lineNumber: 99,
+                                                        lineNumber: 108,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                                lineNumber: 97,
+                                                lineNumber: 106,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                            lineNumber: 96,
+                                            lineNumber: 105,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                        lineNumber: 95,
+                                        lineNumber: 104,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuContent"], {
@@ -689,7 +698,7 @@ function Navigation() {
                                                         children: user.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                                        lineNumber: 105,
+                                                        lineNumber: 114,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -697,13 +706,13 @@ function Navigation() {
                                                         children: user.email
                                                     }, void 0, false, {
                                                         fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                                        lineNumber: 106,
+                                                        lineNumber: 115,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                                lineNumber: 104,
+                                                lineNumber: 113,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$components$2f$ui$2f$dropdown$2d$menu$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DropdownMenuItem"], {
@@ -713,32 +722,32 @@ function Navigation() {
                                                         className: "mr-2 h-4 w-4"
                                                     }, void 0, false, {
                                                         fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                                        lineNumber: 109,
+                                                        lineNumber: 118,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: "Log out"
                                                     }, void 0, false, {
                                                         fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                                        lineNumber: 110,
+                                                        lineNumber: 119,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                                lineNumber: 108,
+                                                lineNumber: 117,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                        lineNumber: 103,
+                                        lineNumber: 112,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                lineNumber: 94,
+                                lineNumber: 103,
                                 columnNumber: 15
                             }, this)
                         ]
@@ -753,12 +762,12 @@ function Navigation() {
                                     children: "Login"
                                 }, void 0, false, {
                                     fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                    lineNumber: 118,
+                                    lineNumber: 127,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                lineNumber: 117,
+                                lineNumber: 126,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -769,19 +778,19 @@ function Navigation() {
                                     children: "Sign Up"
                                 }, void 0, false, {
                                     fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                    lineNumber: 121,
+                                    lineNumber: 130,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                                lineNumber: 120,
+                                lineNumber: 129,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true)
                 }, void 0, false, {
                     fileName: "[project]/OneDrive/Desktop/EventEra/client/components/navigation.tsx",
-                    lineNumber: 88,
+                    lineNumber: 97,
                     columnNumber: 9
                 }, this)
             ]
