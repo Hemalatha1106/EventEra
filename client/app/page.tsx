@@ -30,10 +30,10 @@ export default function HomePage() {
 
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button asChild size="lg" className="w-full sm:w-auto">
-                <Link href="/events">Browse Events</Link>
+                <Link href="/auth/login">Browse Events</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="w-full sm:w-auto bg-transparent">
-                <Link href="/events/create">Host an Event</Link>
+                <Link href="/auth/login">Host an Event</Link>
               </Button>
             </div>
           </div>

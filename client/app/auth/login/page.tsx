@@ -59,7 +59,7 @@ export default function LoginPage() {
       )
 
       // Redirect after login
-      router.push("/dashboard")
+      router.push("/events")
     } catch (err: any) {
       setError(err.response?.data?.message || "Login failed")
     } finally {

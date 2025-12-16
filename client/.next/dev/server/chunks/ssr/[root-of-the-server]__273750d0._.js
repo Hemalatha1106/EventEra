@@ -1035,7 +1035,7 @@ function LoginPage() {
                 email: data.email
             }));
             // Redirect after login
-            router.push("/dashboard");
+            router.push("/events");
         } catch (err) {
             setError(err.response?.data?.message || "Login failed");
         } finally{

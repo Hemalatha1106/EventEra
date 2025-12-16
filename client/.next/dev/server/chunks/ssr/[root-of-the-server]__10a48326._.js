@@ -1243,13 +1243,16 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$Event
 ;
 function EventsPage() {
     const [events, setEvents] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [filteredEvents, setFilteredEvents] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
+    const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const fetchEvents = async ()=>{
             try {
                 const response = await __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$lib$2f$api$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get("/events/all");
                 setEvents(response.data);
+                setFilteredEvents(response.data);
             } catch (err) {
                 setError(err.response?.data?.message || "Failed to load events");
             } finally{
@@ -1258,12 +1261,23 @@ function EventsPage() {
         };
         fetchEvents();
     }, []);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (searchQuery.trim() === "") {
+            setFilteredEvents(events);
+        } else {
+            const filtered = events.filter((event)=>event.title.toLowerCase().includes(searchQuery.toLowerCase()) || event.description.toLowerCase().includes(searchQuery.toLowerCase()) || event.location.toLowerCase().includes(searchQuery.toLowerCase()));
+            setFilteredEvents(filtered);
+        }
+    }, [
+        searchQuery,
+        events
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "min-h-screen bg-background",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$components$2f$navigation$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Navigation"], {}, void 0, false, {
                 fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                lineNumber: 49,
+                lineNumber: 66,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1279,7 +1293,7 @@ function EventsPage() {
                                         children: "Discover Events"
                                     }, void 0, false, {
                                         fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                                        lineNumber: 54,
+                                        lineNumber: 71,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1287,13 +1301,13 @@ function EventsPage() {
                                         children: "Find your next experience from thousands of events"
                                     }, void 0, false, {
                                         fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                                        lineNumber: 55,
+                                        lineNumber: 72,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                                lineNumber: 53,
+                                lineNumber: 70,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -1306,25 +1320,25 @@ function EventsPage() {
                                             className: "mr-2 h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                                            lineNumber: 60,
+                                            lineNumber: 77,
                                             columnNumber: 15
                                         }, this),
                                         "Create Event"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                                    lineNumber: 59,
+                                    lineNumber: 76,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                                lineNumber: 58,
+                                lineNumber: 75,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                        lineNumber: 52,
+                        lineNumber: 69,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1336,26 +1350,28 @@ function EventsPage() {
                                     className: "absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground"
                                 }, void 0, false, {
                                     fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                                    lineNumber: 69,
+                                    lineNumber: 86,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
                                     placeholder: "Search events...",
-                                    className: "pl-10"
+                                    className: "pl-10",
+                                    value: searchQuery,
+                                    onChange: (e)=>setSearchQuery(e.target.value)
                                 }, void 0, false, {
                                     fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                                    lineNumber: 70,
+                                    lineNumber: 87,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                            lineNumber: 68,
+                            lineNumber: 85,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                        lineNumber: 67,
+                        lineNumber: 84,
                         columnNumber: 9
                     }, this),
                     loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1365,12 +1381,12 @@ function EventsPage() {
                             children: "Loading events..."
                         }, void 0, false, {
                             fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                            lineNumber: 77,
+                            lineNumber: 99,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                        lineNumber: 76,
+                        lineNumber: 98,
                         columnNumber: 11
                     }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "text-center py-12",
@@ -1379,51 +1395,51 @@ function EventsPage() {
                             children: error
                         }, void 0, false, {
                             fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                            lineNumber: 81,
+                            lineNumber: 103,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                        lineNumber: 80,
+                        lineNumber: 102,
                         columnNumber: 11
-                    }, this) : events.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    }, this) : filteredEvents.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "text-center py-12",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             className: "text-muted-foreground",
-                            children: "No events found."
+                            children: searchQuery ? "No events match your search." : "No events found."
                         }, void 0, false, {
                             fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                            lineNumber: 85,
+                            lineNumber: 107,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                        lineNumber: 84,
+                        lineNumber: 106,
                         columnNumber: 11
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
-                        children: events.map((event)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$components$2f$event$2d$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EventCard"], {
+                        children: filteredEvents.map((event)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive$2f$Desktop$2f$EventEra$2f$client$2f$components$2f$event$2d$card$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EventCard"], {
                                 event: event
                             }, event._id, false, {
                                 fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                                lineNumber: 90,
+                                lineNumber: 114,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                        lineNumber: 88,
+                        lineNumber: 112,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-                lineNumber: 51,
+                lineNumber: 68,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/OneDrive/Desktop/EventEra/client/app/events/page.tsx",
-        lineNumber: 48,
+        lineNumber: 65,
         columnNumber: 5
     }, this);
 }
