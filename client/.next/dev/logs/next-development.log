@@ -108,3 +108,139 @@
 [00:18:56.487] Server  LOG      ✓ Compiled in 146ms
 [00:19:47.901] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events/69401dd8c03bfa38e92e5253 color: rgb(120, 120, 120) color: inherit {"dp":"/events/[id]","o":"http://localhost:3000/events/69401dd8c03bfa38e92e5253","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881591458}
 [00:19:51.603] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events color: rgb(120, 120, 120) color: inherit {"dp":"/events","o":"http://localhost:3000/events","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881595102}
+[00:20:39.956] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/hosting color: rgb(120, 120, 120) color: inherit {"dp":"/hosting","o":"http://localhost:3000/hosting","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881643507}
+[00:20:41.798] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/registered color: rgb(120, 120, 120) color: inherit {"dp":"/registered","o":"http://localhost:3000/registered","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881645357}
+[00:20:44.769] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events color: rgb(120, 120, 120) color: inherit {"dp":"/events","o":"http://localhost:3000/events","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881648306}
+[00:22:19.816] Server  LOG      ✓ Compiled in 142ms
+[00:22:24.629] Server  LOG      ✓ Compiled in 80ms
+[00:22:26.601] Server  LOG      ✓ Compiled in 87ms
+[00:22:42.081] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/hosting color: rgb(120, 120, 120) color: inherit {"dp":"/hosting","o":"http://localhost:3000/hosting","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881765623}
+[00:22:43.332] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events color: rgb(120, 120, 120) color: inherit {"dp":"/events","o":"http://localhost:3000/events","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881766848}
+[00:22:45.192] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/hosting color: rgb(120, 120, 120) color: inherit {"dp":"/hosting","o":"http://localhost:3000/hosting","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881768756}
+[00:22:49.576] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events color: rgb(120, 120, 120) color: inherit {"dp":"/events","o":"http://localhost:3000/events","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881773133}
+[00:22:50.961] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/hosting color: rgb(120, 120, 120) color: inherit {"dp":"/hosting","o":"http://localhost:3000/hosting","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881774513}
+[00:22:54.363] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events color: rgb(120, 120, 120) color: inherit {"dp":"/events","o":"http://localhost:3000/events","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881777900}
+[00:23:03.583] Server  LOG      ✓ Compiled in 91ms
+[00:23:06.121] Server  LOG      ✓ Compiled in 122ms
+[00:23:08.516] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/hosting color: rgb(120, 120, 120) color: inherit {"dp":"/hosting","o":"http://localhost:3000/hosting","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881792079}
+[00:24:27.282] Server  LOG      ✓ Compiled in 213ms
+[00:24:28.378] Browser ERROR   ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx:158:6
+Parsing ecmascript source code failed
+  156 |         )}
+  157 |       </div>
+> 158 |     </div>
+      |      ^^^^^
+  159 |   )
+  160 | }
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Client Component Browser]
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Client Component SSR]
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Server Component]
+[00:24:36.374] Browser ERROR   ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx:158:6
+Parsing ecmascript source code failed
+  156 |         )}
+  157 |       </div>
+> 158 |     </div>
+      |      ^^^^^
+  159 |   )
+  160 | }
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Client Component Browser]
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Client Component SSR]
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Server Component]
+[00:24:39.376] Browser ERROR   ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx:158:6
+Parsing ecmascript source code failed
+  156 |         )}
+  157 |       </div>
+> 158 |     </div>
+      |      ^^^^^
+  159 |   )
+  160 | }
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Client Component Browser]
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Client Component SSR]
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Server Component]
+[00:25:16.377] Browser ERROR   ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx:142:6
+Parsing ecmascript source code failed
+  140 |         )}
+  141 |       </div>
+> 142 |     </div>
+      |      ^^^^^
+  143 |   )
+  144 | }
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Client Component Browser]
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Client Component SSR]
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Server Component]
+[00:25:17.371] Browser ERROR   ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx:142:6
+Parsing ecmascript source code failed
+  140 |         )}
+  141 |       </div>
+> 142 |     </div>
+      |      ^^^^^
+  143 |   )
+  144 | }
+
+Unterminated regexp literal
+
+Import traces:
+  Client Component Browser:
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Client Component Browser]
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Client Component SSR]
+    ./OneDrive/Desktop/EventEra/client/app/hosting/page.tsx [Server Component]
+[00:26:06.049] Server  LOG      ✓ Compiled in 117ms
+[00:26:13.968] Server  LOG      ✓ Compiled in 105ms
+[00:26:20.567] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events/create color: rgb(120, 120, 120) color: inherit {"dp":"/events/create","o":"http://localhost:3000/events/create","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881984113}
+[00:26:22.783] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events color: rgb(120, 120, 120) color: inherit {"dp":"/events","o":"http://localhost:3000/events","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881986316}
+[00:26:25.363] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/hosting color: rgb(120, 120, 120) color: inherit {"dp":"/hosting","o":"http://localhost:3000/hosting","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765881988929}
+[00:26:39.327] Server  LOG      ✓ Compiled in 199ms
+[00:26:47.113] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/registered color: rgb(120, 120, 120) color: inherit {"dp":"/registered","o":"http://localhost:3000/registered","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882010673}
+[00:26:50.831] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events color: rgb(120, 120, 120) color: inherit {"dp":"/events","o":"http://localhost:3000/events","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882014349}
+[00:27:23.764] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events/694133c567aaa39849fb6ce4 color: rgb(120, 120, 120) color: inherit {"dp":"/events/[id]","o":"http://localhost:3000/events/694133c567aaa39849fb6ce4","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882047322}
+[00:30:09.090] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events color: rgb(120, 120, 120) color: inherit {"dp":"/events","o":"http://localhost:3000/events","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882212625}
+[00:30:15.207] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/hosting color: rgb(120, 120, 120) color: inherit {"dp":"/hosting","o":"http://localhost:3000/hosting","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882218767}
+[00:30:36.487] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/registered color: rgb(120, 120, 120) color: inherit {"dp":"/registered","o":"http://localhost:3000/registered","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882240038}
+[00:30:44.195] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events/694133c567aaa39849fb6ce4 color: rgb(120, 120, 120) color: inherit {"dp":"/events/[id]","o":"http://localhost:3000/events/694133c567aaa39849fb6ce4","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882247750}
+[00:30:53.724] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/hosting color: rgb(120, 120, 120) color: inherit {"dp":"/hosting","o":"http://localhost:3000/hosting","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882257279}
+[00:31:37.180] Server  LOG      ✓ Compiled in 197ms
+[00:31:45.444] Server  LOG      ✓ Compiled in 171ms
+[00:33:02.690] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/registered color: rgb(120, 120, 120) color: inherit {"dp":"/registered","o":"http://localhost:3000/registered","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882386235}
+[00:33:04.475] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events/694013954dc96401810b3505 color: rgb(120, 120, 120) color: inherit {"dp":"/events/[id]","o":"http://localhost:3000/events/694013954dc96401810b3505","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882388033}
+[00:33:13.584] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/registered color: rgb(120, 120, 120) color: inherit {"dp":"/registered","o":"http://localhost:3000/registered","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882397143}
+[00:33:15.343] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/hosting color: rgb(120, 120, 120) color: inherit {"dp":"/hosting","o":"http://localhost:3000/hosting","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882398909}
+[00:33:19.448] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events color: rgb(120, 120, 120) color: inherit {"dp":"/events","o":"http://localhost:3000/events","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882402923}
+[00:33:24.139] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events/6941284483d28234d1c285a4 color: rgb(120, 120, 120) color: inherit {"dp":"/events/[id]","o":"http://localhost:3000/events/6941284483d28234d1c285a4","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882407690}
+[00:33:28.693] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/events color: rgb(120, 120, 120) color: inherit {"dp":"/events","o":"http://localhost:3000/events","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882412226}
+[00:33:47.003] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/hosting color: rgb(120, 120, 120) color: inherit {"dp":"/hosting","o":"http://localhost:3000/hosting","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882430556}
+[00:33:49.017] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/registered color: rgb(120, 120, 120) color: inherit {"dp":"/registered","o":"http://localhost:3000/registered","sdkn":"@vercel/analytics/next","sdkv":"1.3.1","sv":"0.1.3","ts":1765882432576}

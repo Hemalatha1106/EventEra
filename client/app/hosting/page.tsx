@@ -31,6 +31,17 @@ export default function HostingPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
 
+  const handleDeleteEvent = async (eventId: string) => {
+    if (!confirm("Are you sure you want to delete this event?")) return
+
+    try {
+      await api.delete(`/events/${eventId}`)
+      setHostedEvents(hostedEvents.filter(event => event._id !== eventId))
+    } catch (err: any) {
+      alert(err.response?.data?.message || "Failed to delete event")
+    }
+  }
+
   useEffect(() => {
     const fetchHostedEvents = async () => {
       try {
@@ -82,7 +93,6 @@ export default function HostingPage() {
             <h1 className="mb-2 text-4xl font-bold">Events I'm Hosting</h1>
             <p className="text-muted-foreground">Manage the events you've created</p>
           </div>
-
           <Button asChild size="lg">
             <Link href="/events/create">
               Create New Event
@@ -141,7 +151,11 @@ export default function HostingPage() {
                     <Button size="sm" variant="outline">
                       <Edit className="h-4 w-4" />
                     </Button>
-                    <Button size="sm" variant="outline">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleDeleteEvent(event._id)}
+                    >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
