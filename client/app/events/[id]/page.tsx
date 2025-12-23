@@ -56,6 +56,10 @@ export default function EventDetailsPage() {
 
   const [currentUser, setCurrentUser] = useState<User | null>(null)
   const [participants, setParticipants] = useState<Participant[]>([])
+  // Check if the current user is already registered
+  const isRegistered = participants.some(
+    (p) => currentUser && p.user.email === currentUser.email
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -260,16 +264,18 @@ export default function EventDetailsPage() {
                   {success}
                 </p>
               )}
-
                 <Button
-                className="w-full"
-                size="lg"
-                onClick={handleRegister}
-                disabled={registering || event.status === "closed" || event.seatsAvailable === 0}
-              >
-                {registering ? "Registering..." : "Already Registered"}
-              </Button>
-
+                  className="w-full"
+                  size="lg"
+                  onClick={handleRegister}
+                  disabled={registering || isRegistered} // only disable if registering or already registered
+                >
+                  {registering
+                    ? "Registering..."
+                    : isRegistered
+                    ? "Already Registered"
+                    : "Register Now"}
+                </Button>
               </CardContent>
             </Card>
           </div>
