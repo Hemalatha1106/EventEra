@@ -267,7 +267,7 @@ export default function EventDetailsPage() {
                 onClick={handleRegister}
                 disabled={registering || event.status === "closed" || event.seatsAvailable === 0}
               >
-                {registering ? "Registering..." : "Register Now"}
+                {registering ? "Registering..." : "Already Registered"}
               </Button>
 
               </CardContent>
