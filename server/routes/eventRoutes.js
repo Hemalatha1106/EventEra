@@ -8,6 +8,7 @@ import {
   deleteEvent,
   getEventById,
   registerForEvent,
+  unregisterFromEvent,
   getRegisteredEvents,
   getEventParticipants
 } from "../controllers/eventController.js";
@@ -28,5 +29,6 @@ router.get("/", protect, getMyEvents);                    // Get my events
 router.put("/:id", protect, updateEvent);                // Update event
 router.delete("/:id", protect, deleteEvent);             // Delete event
 router.post("/:id/register", protect, registerForEvent);  // User registers for event
+router.delete("/:id/unregister", protect, unregisterFromEvent); // User unregisters from event
 
 export default router;

@@ -3,6 +3,7 @@
 
 # deps
 node_modules/
+/package-lock.json
 
 # next.js
 .next/
