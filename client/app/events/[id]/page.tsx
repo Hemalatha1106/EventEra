@@ -10,6 +10,16 @@ import { Calendar, MapPin, Users, DollarSign, Clock, User } from "lucide-react"
 import { format } from "date-fns"
 import api from "@/lib/api"
 
+interface Registration {
+  user: {
+    _id: string
+    name?: string
+  } | string
+  registeredAt: string
+  paymentStatus: "pending" | "paid" | "free"
+  paymentId?: string
+  ticketId?: string
+}
 
 interface Event {
   _id: string
@@ -25,6 +35,8 @@ interface Event {
     _id: string
     name: string
   }
+    registrations: Registration[]   // ✅ Add this
+
 }
 
 interface Participant {
@@ -57,9 +69,25 @@ export default function EventDetailsPage() {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
   const [participants, setParticipants] = useState<Participant[]>([])
   // Check if the current user is already registered
-  const isRegistered = participants.some(
-    (p) => currentUser && p.user.email === currentUser.email
-  );
+const [isRegistered, setIsRegistered] = useState(
+  currentUser
+    ? event?.registrations.some(
+        (reg: Registration) => 
+          (typeof reg.user === "string" ? reg.user === currentUser.id : reg.user._id === currentUser.id)
+      )
+    : false
+);
+
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -119,27 +147,63 @@ export default function EventDetailsPage() {
       </div>
     )
   }
-  const handleRegister = async () => {
-  setRegisterError("")
-  setSuccess("")
-  setRegistering(true)
+  
+const handleRegister = async () => {
+  if (!event) return;
+
+  setRegistering(true);
+  setRegisterError("");
+  setSuccess("");
 
   try {
-    await api.post(`/events/${eventId}/register`)
-    setSuccess("Successfully registered for the event 🎉")
+    // 1️⃣ Create Razorpay order on server
+    const { data: orderData } = await api.post(`/events/${event._id}/create-order`);
 
-    // Optional: reduce seats instantly (UX boost)
-    setEvent((prev) =>
-      prev ? { ...prev, seatsAvailable: prev.seatsAvailable - 1 } : prev
-    )
+    const options = {
+      key: orderData.key, // Razorpay key
+      amount: orderData.amount,
+      currency: orderData.currency,
+      name: event.title,
+      description: "Event Ticket",
+      order_id: orderData.orderId,
+      handler: async function (response: any) {
+        try {
+          // 2️⃣ Verify payment on backend
+          await api.post(`/events/${event._id}/verify-payment`, {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          });
+
+          // 3️⃣ Update UI
+          setSuccess("Successfully registered for the event 🎉");
+          setEvent((prev) =>
+            prev ? { ...prev, seatsAvailable: prev.seatsAvailable - 1 } : prev
+          );
+          setIsRegistered(true);
+        } catch (err: any) {
+          setRegisterError(err.response?.data?.message || "Payment verification failed");
+        }
+      },
+      prefill: {
+        name: currentUser?.name,
+        email: currentUser?.email,
+      },
+      theme: {
+        color: "#2563EB",
+      },
+    };
+
+    // 4️⃣ Open Razorpay checkout
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
   } catch (err: any) {
-    setRegisterError(
-      err.response?.data?.message || "Registration failed"
-    )
+    setRegisterError(err.response?.data?.message || "Order creation failed");
   } finally {
-    setRegistering(false)
+    setRegistering(false);
   }
-}
+};
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -268,7 +332,7 @@ export default function EventDetailsPage() {
                   className="w-full"
                   size="lg"
                   onClick={handleRegister}
-                  disabled={registering || isRegistered} // only disable if registering or already registered
+                  disabled={registering || isRegistered || event?.seatsAvailable === 0 || event?.status === "closed"}
                 >
                   {registering
                     ? "Registering..."
