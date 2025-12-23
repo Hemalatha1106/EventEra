@@ -10,10 +10,22 @@ import {
   registerForEvent,
   unregisterFromEvent,
   getRegisteredEvents,
-  getEventParticipants
+  getEventParticipants,
 } from "../controllers/eventController.js";
+import { 
+  createRazorpayOrder, 
+  verifyRazorpayPayment, 
+  registerFreeEvent 
+} from "../controllers/paymentController.js";
 
 const router = express.Router();
+
+// Paid event registration
+router.post("/:id/create-order", protect, createRazorpayOrder);
+router.post("/:id/verify-payment", protect, verifyRazorpayPayment);
+
+// Free event registration
+router.post("/:id/register-free", protect, registerFreeEvent);
 
 // 🌐 Public routes
 router.get("/all", getAllEvents);                 // Get all events
