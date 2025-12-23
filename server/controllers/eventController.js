@@ -196,3 +196,41 @@ export const getEventParticipants = async (req, res) => {
   }
 };
 
+// USER unregisters from event
+export const unregisterFromEvent = async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id)
+    const user = await User.findById(req.user._id)
+
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" })
+    }
+
+    // ❌ Not registered
+    const registrationIndex = event.registrations.findIndex(
+      (r) => r.user.toString() === req.user._id.toString()
+    )
+
+    if (registrationIndex === -1) {
+      return res.status(400).json({ message: "Not registered for this event" })
+    }
+
+    // ✅ Remove registration
+    event.registrations.splice(registrationIndex, 1)
+    event.seatsAvailable = (event.seatsAvailable || 0) + 1
+
+    await event.save()
+
+    // Optional: also remove from user
+    user.registeredEvents = user.registeredEvents.filter(
+      (eid) => eid.toString() !== event._id.toString()
+    )
+    await user.save()
+
+    res.status(200).json({ message: "Unregistered successfully" })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: "Unregistration failed" })
+  }
+}
+

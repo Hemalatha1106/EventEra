@@ -46,6 +46,16 @@ export default function RegisteredPage() {
     fetchRegisteredEvents()
   }, [])
 
+  const handleUnregister = async (id: string) => {
+    if (!confirm("Are you sure you want to unregister from this event?")) return
+    try {
+      await api.delete(`/events/${id}/unregister`)
+      setRegisteredEvents((prev) => prev.filter((e) => e._id !== id))
+    } catch (err: any) {
+      setError(err.response?.data?.message || "Failed to unregister")
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
@@ -120,9 +130,13 @@ export default function RegisteredPage() {
                   </div>
                 </CardHeader>
 
-                <CardContent>
+                <CardContent className="flex items-center gap-2">
                   <Button size="sm" asChild>
                     <Link href={`/events/${event._id}`}>View Details</Link>
+                  </Button>
+
+                  <Button size="sm" variant="destructive" onClick={() => handleUnregister(event._id)}>
+                    Unregister
                   </Button>
                 </CardContent>
               </Card>

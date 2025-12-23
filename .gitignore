@@ -1,0 +1,13 @@
+# env
+.env
+
+# deps
+node_modules/
+/package-lock.json
+
+# next.js
+.next/
+out/
+
+# logs
+*.log
