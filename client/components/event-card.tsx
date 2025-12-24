@@ -61,7 +61,7 @@ export function EventCard({ event }: { event: Event }) {
 
           <div className="flex items-center gap-2 text-sm font-semibold">
             <DollarSign className="h-4 w-4" />
-            <span>{event.ticketPrice === 0 ? "Free" : `$${event.ticketPrice}`}</span>
+            <span>{event.ticketPrice === 0 ? "Free" : `₹${event.ticketPrice}`}</span>
           </div>
         </CardContent>
 

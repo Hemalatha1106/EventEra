@@ -1,6 +1,7 @@
 import Razorpay from "razorpay";
 import crypto from "crypto";
 import Event from "../models/event.js";
+import User from "../models/user.js";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -84,7 +85,9 @@ export const verifyRazorpayPayment = async (req, res) => {
 
   try {
     const event = await Event.findById(req.params.id);
+    const user = await User.findById(req.user.id);
     if (!event) return res.status(404).json({ message: "Event not found" });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     const alreadyRegistered = event.registrations.some(
       (reg) => reg.user.toString() === req.user.id
@@ -105,6 +108,10 @@ export const verifyRazorpayPayment = async (req, res) => {
 
     await event.save();
 
+    // Add to user's registered events
+    user.registeredEvents.push(event._id);
+    await user.save();
+
     res.json({ message: "Payment verified and registration successful" });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -115,7 +122,9 @@ export const verifyRazorpayPayment = async (req, res) => {
 export const registerFreeEvent = async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
+    const user = await User.findById(req.user.id);
     if (!event) return res.status(404).json({ message: "Event not found" });
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     if (event.ticketPrice > 0) {
       return res.status(400).json({ message: "This is a paid event. Use /create-order." });
@@ -138,6 +147,10 @@ export const registerFreeEvent = async (req, res) => {
     if (event.seatsAvailable > 0) event.seatsAvailable -= 1;
 
     await event.save();
+
+    // Add to user's registered events
+    user.registeredEvents.push(event._id);
+    await user.save();
 
     res.json({ message: "Successfully registered for the free event" });
   } catch (error) {

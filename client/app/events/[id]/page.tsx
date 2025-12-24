@@ -156,49 +156,60 @@ const handleRegister = async () => {
   setSuccess("");
 
   try {
-    // 1️⃣ Create Razorpay order on server
-    const { data: orderData } = await api.post(`/events/${event._id}/create-order`);
+    if (event.ticketPrice === 0) {
+      // Free event
+      await api.post(`/events/${event._id}/register-free`);
+      setSuccess("Successfully registered for the event 🎉");
+      setEvent((prev) =>
+        prev ? { ...prev, seatsAvailable: prev.seatsAvailable - 1 } : prev
+      );
+      setIsRegistered(true);
+    } else {
+      // Paid event
+      // 1️⃣ Create Razorpay order on server
+      const { data: orderData } = await api.post(`/events/${event._id}/create-order`);
 
-    const options = {
-      key: orderData.key, // Razorpay key
-      amount: orderData.amount,
-      currency: orderData.currency,
-      name: event.title,
-      description: "Event Ticket",
-      order_id: orderData.orderId,
-      handler: async function (response: any) {
-        try {
-          // 2️⃣ Verify payment on backend
-          await api.post(`/events/${event._id}/verify-payment`, {
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_signature: response.razorpay_signature,
-          });
+      const options = {
+        key: orderData.key, // Razorpay key
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: event.title,
+        description: "Event Ticket",
+        order_id: orderData.orderId,
+        handler: async function (response: any) {
+          try {
+            // 2️⃣ Verify payment on backend
+            await api.post(`/events/${event._id}/verify-payment`, {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            });
 
-          // 3️⃣ Update UI
-          setSuccess("Successfully registered for the event 🎉");
-          setEvent((prev) =>
-            prev ? { ...prev, seatsAvailable: prev.seatsAvailable - 1 } : prev
-          );
-          setIsRegistered(true);
-        } catch (err: any) {
-          setRegisterError(err.response?.data?.message || "Payment verification failed");
-        }
-      },
-      prefill: {
-        name: currentUser?.name,
-        email: currentUser?.email,
-      },
-      theme: {
-        color: "#2563EB",
-      },
-    };
+            // 3️⃣ Update UI
+            setSuccess("Successfully registered for the event 🎉");
+            setEvent((prev) =>
+              prev ? { ...prev, seatsAvailable: prev.seatsAvailable - 1 } : prev
+            );
+            setIsRegistered(true);
+          } catch (err: any) {
+            setRegisterError(err.response?.data?.message || "Payment verification failed");
+          }
+        },
+        prefill: {
+          name: currentUser?.name,
+          email: currentUser?.email,
+        },
+        theme: {
+          color: "#2563EB",
+        },
+      };
 
-    // 4️⃣ Open Razorpay checkout
-    const rzp = new (window as any).Razorpay(options);
-    rzp.open();
+      // 4️⃣ Open Razorpay checkout
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
+    }
   } catch (err: any) {
-    setRegisterError(err.response?.data?.message || "Order creation failed");
+    setRegisterError(err.response?.data?.message || "Registration failed");
   } finally {
     setRegistering(false);
   }
@@ -312,7 +323,7 @@ const handleRegister = async () => {
                     <div>
                       <p className="font-medium">Ticket Price</p>
                       <p className="text-lg font-semibold">
-                        {event.ticketPrice === 0 ? "Free" : `$${event.ticketPrice}`}
+                        {event.ticketPrice === 0 ? "Free" : `₹${event.ticketPrice}`}
                       </p>
                     </div>
                   </div>

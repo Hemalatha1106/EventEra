@@ -9,14 +9,14 @@ import authRoutes from "./routes/authRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 
-// Resolve __dirname in ESM
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// // Resolve __dirname in ESM
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
-// Load .env from project folder (EventEra/.env) if present, otherwise fallback to default
-const projectEnvPath = path.resolve(__dirname, "../.env");
-dotenv.config({ path: projectEnvPath });
-
+// // Load .env from project folder (EventEra/.env) if present, otherwise fallback to default
+// const projectEnvPath = path.resolve(__dirname, "../.env");
+// dotenv.config({ path: projectEnvPath });
+dotenv.config();
 connectDB();
 
 const app = express();
