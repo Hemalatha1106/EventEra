@@ -57,14 +57,14 @@ EventEra/
 git clone https://github.com/Hemalatha1106/EventEra
 
 ## 🔧 Backend Setup
-cd server
-npm install
-npm run dev
+- cd server
+- npm install
+- npm run dev
 
 ## 🎨 Frontend Setup
-cd client
-npm install
-npm run dev
+- cd client
+- npm install
+- npm run dev
 
 ---
 
